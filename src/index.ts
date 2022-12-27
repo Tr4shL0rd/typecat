@@ -1,4 +1,5 @@
-const world = 'World';
-export function hello(who: string = world): string {
-  return `Hello ${who}`;
+import * as fs from 'fs';
+
+async function readFile(filename: string): Promise<string>{
+  return await fs.promises.readFile(filename, "utf8");
 }
