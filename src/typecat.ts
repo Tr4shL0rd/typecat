@@ -1,14 +1,13 @@
-import { isBinaryFileSync } from "isbinaryfile";
+import {isBinaryFileSync} from 'isbinaryfile';
 
 const fs = require('fs');
-const PROGNAME = "typecat";
-const VERSION = "0.9.5";
-export const VERSION_STRING = `${PROGNAME} ${VERSION}`
+const PROGNAME = 'typecat';
+const VERSION = '0.9.5';
+export const VERSION_STRING = `${PROGNAME} ${VERSION}`;
 /**
  * A class for managing the exit code of a process.
  */
 class ExitCode {
-
   /**
    * The current exit code.
    */
@@ -36,11 +35,10 @@ export const EXIT_CODE = new ExitCode();
  * A class representing an error with an associated exit code and name.
  */
 class ErrorProps extends Error {
-
   /**
    * The exit code associated with the error.
    */
-  public readonly exit_code:number;
+  public readonly exit_code: number;
 
   /**
    * Creates a new `ErrorProps` instance.
@@ -48,7 +46,7 @@ class ErrorProps extends Error {
    * @param name The name of the error.
    * @param exit_code The exit code associated with the error.
    */
-  constructor(message:string|undefined, name:string, exit_code:number) {
+  constructor(message: string | undefined, name: string, exit_code: number) {
     super(message);
     this.exit_code = exit_code;
     this.name = name;
@@ -63,8 +61,8 @@ export class AccessDeniedError extends ErrorProps {
    * Creates a new `AccessDeniedError` instance.
    * @param message The error message.
    */
-  constructor(message:string|undefined) {
-    super(message,"AccessDeniedError",13)
+  constructor(message: string | undefined) {
+    super(message, 'AccessDeniedError', 13);
   }
 }
 
@@ -76,8 +74,8 @@ export class FileNotFoundError extends ErrorProps {
    * Creates a new `FileNotFoundError` instance.
    * @param message The error message.
    */
-  constructor(message:string | undefined) {
-    super(message,"FileNotFoundError",2);
+  constructor(message: string | undefined) {
+    super(message, 'FileNotFoundError', 2);
   }
 }
 
@@ -88,11 +86,9 @@ export class FileNotFoundError extends ErrorProps {
  * @throws {Error} If the file cannot be read.
  */
 export function read_file(filename: string): string {
-
   try {
     return fs.readFileSync(filename, 'utf8');
   } catch (err) {
-
     // casts err to Error for better error handling
     const error = err as Error;
     // prepares error for error handling
@@ -101,7 +97,7 @@ export function read_file(filename: string): string {
       //EXIT_CODE.set(13);
       throw new AccessDeniedError(error_string);
     }
-    if (error_string.includes("ENOENT")) {
+    if (error_string.includes('ENOENT')) {
       //EXIT_CODE.set(2);
       throw new FileNotFoundError(error_string);
     }
@@ -109,7 +105,7 @@ export function read_file(filename: string): string {
     throw err;
   }
 }
-export function is_binary(filename:string): boolean {
+export function is_binary(filename: string): boolean {
   const bytes = fs.readFileSync(filename);
   const size = fs.lstatSync(filename).size;
   return isBinaryFileSync(bytes, size);
@@ -135,13 +131,13 @@ export function flatten<T>(arr: T[]): T[] {
 }
 
 export function help_message() {
-  console.log("Usage: typecat [OPTIONS] [FILES]\n");
-  console.log("Options:");
-  console.log("\t -b, --banner         Displays filename before each file");
-  console.log("\t -n,--number          Line number, starts at 1");
-  console.log("\t -f, --force          Reads any file no matter the type");
-  console.log("\t -v,--version         Shows the version number and exits");
-  console.log("\t -h,--help            Shows this help message and exits");
+  console.log('Usage: typecat [OPTIONS] [FILES]\n');
+  console.log('Options:');
+  console.log('\t -b, --banner         Displays filename before each file');
+  console.log('\t -n,--number          Line number, starts at 1');
+  console.log('\t -f, --force          Reads any file no matter the type');
+  console.log('\t -v,--version         Shows the version number and exits');
+  console.log('\t -h,--help            Shows this help message and exits');
   console.log(`\nMade by Tr4shL0rd\n${VERSION_STRING}`);
 }
 
@@ -156,21 +152,21 @@ export interface Commands {
   /**A boolean representing the `banner` flag.*/
   banner: boolean;
   /**Shorthand for --banner */
-  b:boolean;
+  b: boolean;
   /**A boolean representing the `number` flag.*/
   number: boolean;
   /**Shorthand for --number */
-  n:boolean;
+  n: boolean;
   /**A boolean representing the `version` flag.*/
   version: boolean;
   /**Shorthand for --version */
-  v:boolean;
+  v: boolean;
   /**A boolean representing the `help` flag.*/
   help: boolean;
   /**Shorthand for --help */
-  h:boolean;
+  h: boolean;
   /**A boolean representing the `force` flag. */
   force: boolean;
   /**Shorthand for --force */
-  f:boolean;
+  f: boolean;
 }
