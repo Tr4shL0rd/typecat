@@ -133,11 +133,11 @@ export function flatten<T>(arr: T[]): T[] {
 export function help_message() {
   console.log('Usage: typecat [OPTIONS] [FILES]\n');
   console.log('Options:');
-  console.log('\t -b, --banner         Displays filename before each file');
-  console.log('\t -n,--number          Line number, starts at 1');
-  console.log('\t -f, --force          Reads any file no matter the type');
-  console.log('\t -v,--version         Shows the version number and exits');
-  console.log('\t -h,--help            Shows this help message and exits');
+  console.log('\t -b, --banner          Displays filename before each file');
+  console.log('\t -n, --number          Line number, starts at 1');
+  console.log('\t -f, --force           Reads any file no matter the type');
+  console.log('\t -v, --version         Shows the version number and exits');
+  console.log('\t -h, --help            Shows this help message and exits');
   console.log(`\nMade by Tr4shL0rd\n${VERSION_STRING}`);
 }
 
