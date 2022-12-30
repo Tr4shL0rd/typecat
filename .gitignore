@@ -2,6 +2,7 @@ node_modules/
 .node_modules/
 built/*
 build/*
+file*.txt
 tests/cases/rwc/*
 tests/cases/test262/*
 tests/cases/perf/*
